@@ -5,28 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>抽籤程式</title>
   <style>
-    /* 全局設定 */
     body {
       margin: 0;
       font-family: "Noto Sans TC", Arial, sans-serif;
-      background: radial-gradient(ellipse at bottom, #0d1b2a, #000);
+      background: radial-gradient(ellipse at bottom, #050505, #000000);
       color: #e0e6ed;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* 容器卡片 */
+    /* 藍光呼吸層 */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(0,150,255,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: breathe 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.35; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.65; }
+    }
+
     .container {
       background: rgba(20, 30, 50, 0.7);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 0 30px rgba(100, 200, 255, 0.3);
+      box-shadow: 0 0 30px rgba(100, 200, 255, 0.25);
       max-width: 500px;
       width: 90%;
       text-align: center;
       backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
     }
 
     h2 {
@@ -82,7 +103,7 @@
       white-space: pre-line;
     }
 
-    /* 星星背景 */
+    /* 星空背景 (可循環) */
     body::before {
       content: "";
       position: absolute;
@@ -91,13 +112,13 @@
       background: transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2' height='2'><circle cx='1' cy='1' r='1' fill='white' opacity='0.7'/></svg>") repeat;
       background-size: 2px 2px;
       opacity: 0.3;
-      z-index: -1;
-      animation: twinkle 10s linear infinite;
+      z-index: 0;
+      animation: starMove 60s linear infinite;
     }
 
-    @keyframes twinkle {
-      from { transform: translateY(0); }
-      to { transform: translateY(-100px); }
+    @keyframes starMove {
+      from { background-position: 0 0; }
+      to { background-position: 0 -1000px; }
     }
   </style>
 </head>
@@ -140,3 +161,5 @@
   </script>
 </body>
 </html>
+
+
